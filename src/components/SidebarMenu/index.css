@@ -1,0 +1,8 @@
+.sidebar-item {
+  text-decoration: none;
+  color: inherit;
+}
+
+.sidebar-item.active {
+  color: #1976d2;
+}

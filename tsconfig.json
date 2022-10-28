@@ -1,9 +1,25 @@
 {
   "compilerOptions": {
+    "module": "es2022",
+    "lib": ["es2022", "DOM"],
+    "moduleResolution": "Node",
     "baseUrl": "./",
     "jsx": "react-jsx",
     "esModuleInterop": true,
     "resolveJsonModule": true,
-    "paths": {}
+    "paths": {
+      "@apiClients": ["src/apiClients"],
+      "@components": ["src/components"],
+      "@constants": ["src/constants"],
+      "@interfaces": ["src/interfaces"],
+      "@layouts": ["src/layouts"],
+      "@models": ["src/models"],
+      "@pages": ["src/pages"],
+      "@routes": ["src/routes"],
+      "@states": ["src/states"],
+      "@utils": ["src/utils"]
+    },
+    "types": ["vite/client"],
+    "noImplicitAny": true
   }
 }
