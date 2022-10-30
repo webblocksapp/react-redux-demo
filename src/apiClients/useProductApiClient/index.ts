@@ -1,11 +1,20 @@
 import { localAxios } from '@utils';
-import { Id, Product } from '@interfaces';
+import { EntityParams, Id, Product } from '@interfaces';
 
 export const useProductApiClient = () => {
-  const list = async () => {
-    const response = await localAxios.get<Product[]>('/products?_limit=10&_page=1');
-    console.log(response.headers);
-    return response.data;
+  const list = async (params: EntityParams<Product>) => {
+    params = { _limit: 10, _page: 0, ...params };
+    const { data, headers } = await localAxios.get<Product[]>('/products', {
+      params,
+    });
+    return {
+      data,
+      pagination: {
+        count: Number(headers['x-total-count']),
+        limit: params._limit,
+        page: params._page,
+      },
+    };
   };
 
   const create = async (data: Product) => {

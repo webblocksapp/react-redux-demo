@@ -1,5 +1,5 @@
 import { useProductApiClient } from '@apiClients';
-import { Id, Product, ProductActions, RootState } from '@interfaces';
+import { EntityParams, Id, Product, ProductActions, RootState } from '@interfaces';
 import { Dispatch } from '@reduxjs/toolkit';
 import { useDispatch } from 'react-redux';
 
@@ -7,10 +7,11 @@ export const useProductModel = () => {
   const dispatch = useDispatch<Dispatch<ProductActions>>();
   const productApiClient = useProductApiClient();
 
-  const list = async () => {
+  const list = async (params?: EntityParams<Product>) => {
     try {
       dispatch({ type: 'PRODUCT:LISTING', flag: true });
-      dispatch({ type: 'PRODUCT:LIST', products: await productApiClient.list() });
+      const { data: products, pagination } = await productApiClient.list(params);
+      dispatch({ type: 'PRODUCT:LIST', products, pagination });
     } finally {
       dispatch({ type: 'PRODUCT:LISTING', flag: false });
     }
@@ -44,7 +45,7 @@ export const useProductModel = () => {
     }
   };
 
-  const selectProducts = (state: RootState) => state.productState.products;
+  const selectProductState = (state: RootState) => state.productState;
 
-  return { list, create, update, remove, selectProducts };
+  return { list, create, update, remove, selectProductState };
 };

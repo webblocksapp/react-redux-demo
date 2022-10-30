@@ -1,7 +1,7 @@
-import { Product, Id } from '@interfaces';
+import { Pagination, Product, Id } from '@interfaces';
 
 export type ProductActions =
-  | { type: 'PRODUCT:LIST'; products: Product[] }
+  | { type: 'PRODUCT:LIST'; products: Product[]; pagination: Pagination }
   | { type: 'PRODUCT:LISTING'; flag: boolean }
   | { type: 'PRODUCT:CREATE'; product: Product }
   | { type: 'PRODUCT:CREATING'; flag: boolean }

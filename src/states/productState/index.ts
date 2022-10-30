@@ -1,18 +1,9 @@
 import { ProductActions, ProductState } from '@interfaces';
-import {
-  list,
-  listing,
-  create,
-  creating,
-  update,
-  updating,
-  remove,
-  removing,
-  error,
-} from './handlers';
+import { list, listing, create, creating, update, updating, remove, removing } from './handlers';
 
 const initialState: ProductState = {
   products: [],
+  pagination: { count: 0, limit: 10, page: 1 },
   listing: false,
   creating: false,
   updating: false,
@@ -23,7 +14,7 @@ const initialState: ProductState = {
 export const productState = (state: ProductState = initialState, action: ProductActions) => {
   switch (action.type) {
     case 'PRODUCT:LIST':
-      return list(action.products, state);
+      return list(action.products, action.pagination, state);
     case 'PRODUCT:LISTING':
       return listing(action.flag, state);
     case 'PRODUCT:CREATE':

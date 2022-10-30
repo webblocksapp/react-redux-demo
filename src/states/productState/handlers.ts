@@ -1,7 +1,11 @@
-import { Id, Product, ProductState } from '@interfaces';
+import { Id, Pagination, Product, ProductState } from '@interfaces';
 
-export const list = (products: Product[], state: ProductState): ProductState => {
-  return { ...state, products, error: '' };
+export const list = (
+  products: Product[],
+  pagination: Pagination,
+  state: ProductState
+): ProductState => {
+  return { ...state, products, pagination, error: '' };
 };
 
 export const listing = (flag: boolean, state: ProductState): ProductState => {
@@ -39,8 +43,4 @@ export const remove = (id: Id, state: ProductState): ProductState => {
 
 export const removing = (flag: boolean, state: ProductState): ProductState => {
   return { ...state, removing: flag };
-};
-
-export const error = (message: string, state: ProductState): ProductState => {
-  return { ...state, error: message };
 };
