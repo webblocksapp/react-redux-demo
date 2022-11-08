@@ -1,4 +1,5 @@
 export * from './BrowserNativeObject';
+export * from './DataTableColumn';
 export * from './EntityParams';
 export * from './Id';
 export * from './MenuItem';

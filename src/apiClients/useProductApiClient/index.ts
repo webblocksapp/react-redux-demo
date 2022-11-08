@@ -32,10 +32,16 @@ export const useProductApiClient = () => {
     return data;
   };
 
+  const read = async (id: Id) => {
+    const { data } = await localAxios.get<Product>(`/products/${id}`);
+    return data;
+  };
+
   return {
     list,
     create,
     update,
     remove,
+    read,
   };
 };

@@ -45,7 +45,18 @@ export const useProductModel = () => {
     }
   };
 
-  const selectProductState = (state: RootState) => state.productState;
+  const read = async (id: Id) => {
+    try {
+      dispatch({ type: 'PRODUCT:READING', flag: true });
+      dispatch({ type: 'PRODUCT:READ', product: await productApiClient.read(id) });
+    } finally {
+      dispatch({ type: 'PRODUCT:READING', flag: false });
+    }
+  };
 
-  return { list, create, update, remove, selectProductState };
+  const selectProductState = (state: RootState) => state.productState;
+  const selectProduct = (id: Id, state: RootState) =>
+    state.productState.products.find((item) => item.id == id);
+
+  return { list, create, update, remove, read, selectProductState, selectProduct };
 };

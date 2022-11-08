@@ -7,5 +7,5 @@ export type ProductState = {
   creating: boolean;
   updating: boolean;
   removing: boolean;
-  error: string;
+  reading: boolean;
 };

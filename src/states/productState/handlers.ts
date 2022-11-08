@@ -5,7 +5,7 @@ export const list = (
   pagination: Pagination,
   state: ProductState
 ): ProductState => {
-  return { ...state, products, pagination, error: '' };
+  return { ...state, products, pagination };
 };
 
 export const listing = (flag: boolean, state: ProductState): ProductState => {
@@ -14,7 +14,7 @@ export const listing = (flag: boolean, state: ProductState): ProductState => {
 
 export const create = (product: Product, state: ProductState): ProductState => {
   const products = [...state.products, product];
-  return { ...state, products, error: '' };
+  return { ...state, products };
 };
 
 export const creating = (flag: boolean, state: ProductState): ProductState => {
@@ -29,7 +29,7 @@ export const update = (id: Id, product: Product, state: ProductState): ProductSt
 
     return item;
   });
-  return { ...state, products, error: '' };
+  return { ...state, products };
 };
 
 export const updating = (flag: boolean, state: ProductState): ProductState => {
@@ -38,9 +38,18 @@ export const updating = (flag: boolean, state: ProductState): ProductState => {
 
 export const remove = (id: Id, state: ProductState): ProductState => {
   const products = state.products.filter((item) => item.id !== id);
-  return { ...state, products, error: '' };
+  return { ...state, products };
 };
 
 export const removing = (flag: boolean, state: ProductState): ProductState => {
   return { ...state, removing: flag };
+};
+
+export const read = (product: Product, state: ProductState): ProductState => {
+  const products = [...state.products, product];
+  return { ...state, products };
+};
+
+export const reading = (flag: boolean, state: ProductState): ProductState => {
+  return { ...state, reading: flag };
 };

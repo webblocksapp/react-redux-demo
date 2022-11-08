@@ -1,5 +1,16 @@
 import { ProductActions, ProductState } from '@interfaces';
-import { list, listing, create, creating, update, updating, remove, removing } from './handlers';
+import {
+  list,
+  listing,
+  create,
+  creating,
+  update,
+  updating,
+  remove,
+  removing,
+  read,
+  reading,
+} from './handlers';
 
 const initialState: ProductState = {
   products: [],
@@ -8,7 +19,7 @@ const initialState: ProductState = {
   creating: false,
   updating: false,
   removing: false,
-  error: '',
+  reading: false,
 };
 
 export const productState = (state: ProductState = initialState, action: ProductActions) => {
@@ -29,6 +40,10 @@ export const productState = (state: ProductState = initialState, action: Product
       return remove(action.id, state);
     case 'PRODUCT:REMOVING':
       return removing(action.flag, state);
+    case 'PRODUCT:READ':
+      return read(action.product, state);
+    case 'PRODUCT:READING':
+      return reading(action.flag, state);
     default:
       return state;
   }

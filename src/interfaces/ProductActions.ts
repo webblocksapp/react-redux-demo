@@ -8,4 +8,6 @@ export type ProductActions =
   | { type: 'PRODUCT:UPDATE'; id: Id; product: Product }
   | { type: 'PRODUCT:UPDATING'; flag: boolean }
   | { type: 'PRODUCT:REMOVE'; id: Id }
-  | { type: 'PRODUCT:REMOVING'; flag: boolean };
+  | { type: 'PRODUCT:REMOVING'; flag: boolean }
+  | { type: 'PRODUCT:READ'; product: Product }
+  | { type: 'PRODUCT:READING'; flag: boolean };

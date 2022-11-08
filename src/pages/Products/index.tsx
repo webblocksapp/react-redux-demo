@@ -1,12 +1,9 @@
 import React from 'react';
-import { ProductForm } from './ProductForm';
-import { ProductsTable } from './ProductsTable';
+import { Outlet } from 'react-router-dom';
 
 export const Products: React.FC = () => {
-  return (
-    <>
-      <ProductForm />
-      <ProductsTable />
-    </>
-  );
+  return <Outlet />;
 };
+
+export * from './ProductForm';
+export * from './ProductsTable';

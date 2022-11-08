@@ -1,21 +1,15 @@
 import React, { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
-import {
-  Alert,
-  Box,
-  TablePagination,
-  Table,
-  TableHead,
-  TableCell,
-  TableRow,
-  TableBody,
-} from '@components';
+import { Alert, DataTable, IconButton } from '@components';
 import { useProductModel } from '@models';
 import { EntityParams, Product } from '@interfaces';
+import { useNavigate } from 'react-router-dom';
+import EditIcon from '@mui/icons-material/Edit';
 
 export const ProductsTable: React.FC = () => {
   const productModel = useProductModel();
   const productState = useSelector(productModel.selectProductState);
+  const navigate = useNavigate();
   const [errorMessage, setErrorMessage] = useState('');
 
   const listProducts = async (params?: EntityParams<Product>) => {
@@ -35,54 +29,35 @@ export const ProductsTable: React.FC = () => {
   };
 
   useEffect(() => {
-    listProducts();
+    !productState.pagination.count && listProducts();
   }, []);
 
   return (
     <>
       {errorMessage && <Alert severity="error">{errorMessage}</Alert>}
-      <Table style={{ opacity: productState.listing && 0.4 }}>
-        <TableHead>
-          <TableRow>
-            <TableCell>Id</TableCell>
-            <TableCell>Name</TableCell>
-            <TableCell align="right">Brand</TableCell>
-            <TableCell align="right">Price</TableCell>
-            <TableCell align="right">Currency</TableCell>
-            <TableCell align="right">Actions</TableCell>
-          </TableRow>
-        </TableHead>
-        <TableBody>
-          {productState.products.map((product) => (
-            <TableRow key={product.id} sx={{ '&:last-child td, &:last-child th': { border: 0 } }}>
-              <TableCell>{product.id}</TableCell>
-              <TableCell>{product.name}</TableCell>
-              <TableCell align="right">{product.brand}</TableCell>
-              <TableCell align="right">{product.price}</TableCell>
-              <TableCell align="right">{product.currency}</TableCell>
-              <TableCell align="right">Actions</TableCell>
-            </TableRow>
-          ))}
-        </TableBody>
-      </Table>
-      {productState.pagination.count ? (
-        <Box display="flex" justifyContent="center" mt={2}>
-          <TablePagination
-            component="div"
-            count={productState.pagination.count}
-            page={productState.pagination.page - 1}
-            rowsPerPage={productState.pagination.limit}
-            onPageChange={(_, page) => {
-              listProducts({ _page: page + 1 });
-            }}
-            onRowsPerPageChange={(e) => {
-              listProducts({ _limit: Number(e.target.value), _page: 1 });
-            }}
-          />
-        </Box>
-      ) : (
-        <></>
-      )}
+      <DataTable
+        loading={productState.listing}
+        data={productState.products}
+        columns={[
+          { path: 'id', label: 'Id' },
+          { path: 'name', label: 'Name' },
+          { path: 'price', label: 'Price' },
+          { path: 'currency', label: 'Currency' },
+          {
+            label: 'Actions',
+            cellTemplate: (row: Product) => (
+              <>
+                <IconButton onClick={() => navigate(`${row.id}`)}>
+                  <EditIcon />
+                </IconButton>
+              </>
+            ),
+          },
+        ]}
+        pagination={productState.pagination}
+        onPageChange={(page) => listProducts({ _page: page })}
+        onRowsPerPageChange={(limit) => listProducts({ _limit: limit, _page: 1 })}
+      />
     </>
   );
 };

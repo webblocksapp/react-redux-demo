@@ -1,4 +1,4 @@
-import { Products } from '@pages';
+import { Error404, ProductForm, Products, ProductsTable } from '@pages';
 import { RouteObject } from 'react-router-dom';
 import { MainLayout } from 'src/layouts/MainLayout';
 
@@ -14,6 +14,20 @@ export const routes: RouteObject[] = [
       {
         path: 'products',
         element: <Products />,
+        children: [
+          {
+            index: true,
+            element: <ProductsTable />,
+          },
+          {
+            path: ':id',
+            element: <ProductForm />,
+          },
+        ],
+      },
+      {
+        path: '404',
+        element: <Error404 />,
       },
     ],
   },
