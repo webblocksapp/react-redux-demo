@@ -1,49 +1,38 @@
 import React, { useEffect } from 'react';
 import { Controller } from 'react-hook-form';
 import { useForm } from '@utils';
-import { yupResolver } from '@hookform/resolvers/yup';
 import { Button, Grid, TextField, Typography } from '@components';
 import { schema } from './schema';
 import { Product, RootState } from '@interfaces';
 import { useNavigate, useParams } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import { useProductModel } from '@models';
-import { AxiosError } from 'axios';
 
 export const ProductForm: React.FC = () => {
   const navigate = useNavigate();
   const { id } = useParams();
   const productModel = useProductModel();
   const productState = useSelector(productModel.selectProductState);
-  const product = id && useSelector((state: RootState) => productModel.selectProduct(id, state));
+  const product = useSelector((state: RootState) => productModel.selectProduct(id, state));
 
   const {
     control,
+    fill,
     handleSubmit,
     formState: { isValid },
-  } = useForm({
-    resolver: yupResolver(schema),
-    defaultValues: product || { name: '', brand: '', price: 0, currency: 'USD' },
-  });
+  } = useForm(schema);
 
-  const submit = (data: Product) => {
+  const submit = async (data: Product) => {
+    await productModel.update(id, data);
     navigate('../');
   };
 
-  const fillForm = async () => {
-    if (product) return;
-
-    try {
-      await productModel.read(id);
-    } catch (error) {
-      if (error instanceof AxiosError) {
-        error.response.status === 404 && navigate('/404');
-      }
-    }
-  };
+  useEffect(() => {
+    fill(product);
+  }, [product]);
 
   useEffect(() => {
-    fillForm();
+    product === undefined && productModel.read(id);
   }, []);
 
   return (
@@ -102,7 +91,11 @@ export const ProductForm: React.FC = () => {
               />
             </Grid>
             <Grid item xs={12}>
-              <Button type="submit" variant="contained" disabled={!isValid}>
+              <Button
+                type="submit"
+                variant="contained"
+                disabled={!isValid || productState.updating}
+              >
                 Submit
               </Button>
             </Grid>

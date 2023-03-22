@@ -3,8 +3,8 @@ import * as yup from 'yup';
 
 export const schema: yup.SchemaOf<Product> = yup.object({
   id: yup.mixed().optional(),
-  name: yup.string().required(),
-  brand: yup.string().required(),
-  price: yup.number().required(),
-  currency: yup.string().required(),
+  name: yup.string().required().default(''),
+  brand: yup.string().required().default(''),
+  price: yup.number().required().default(0),
+  currency: yup.string().required().default(''),
 });

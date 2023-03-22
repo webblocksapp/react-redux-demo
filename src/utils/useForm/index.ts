@@ -1,23 +1,26 @@
-import { useEffect, useRef } from 'react';
-import { useForm as useReactHookForm } from 'react-hook-form';
+import { useMemo } from 'react';
+import { yupResolver } from '@hookform/resolvers/yup';
+import { AnyObjectSchema, AnySchema } from 'yup';
+import { DeepPartial, useForm as useReactHookForm, UseFormReset } from 'react-hook-form';
 
-export const useForm: typeof useReactHookForm = (props) => {
-  const form = useReactHookForm(props);
-  const store = useRef({ resetting: false });
+type Params = Omit<Parameters<typeof useReactHookForm>, 'resolver'>;
+type ResetOptions = Parameters<UseFormReset<any>>[1];
 
-  const reset: typeof form.reset = (values, keepStateOptions) => {
-    form.reset(values, keepStateOptions);
-    store.current.resetting = false;
+export const useForm = <T>(schema: AnySchema<T>, options?: Params) => {
+  const defaultValues = useMemo(() => schema.getDefault(), []) as DeepPartial<T>;
+  const form = useReactHookForm({
+    resolver: yupResolver(schema as AnyObjectSchema),
+    defaultValues,
+    ...options,
+  });
+
+  const reset = (options?: ResetOptions) => {
+    form.reset(schema.getDefault(), options);
   };
 
-  useEffect(() => {
-    if (store.current.resetting === true) return;
-    store.current.resetting = true;
-  }, [props.defaultValues]);
+  const fill = (data: T, options?: ResetOptions) => {
+    form.reset(data, options);
+  };
 
-  useEffect(() => {
-    reset(props.defaultValues);
-  }, [store.current.resetting]);
-
-  return { ...form, reset };
+  return { ...form, reset, fill };
 };

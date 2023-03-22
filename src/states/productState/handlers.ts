@@ -23,7 +23,7 @@ export const creating = (flag: boolean, state: ProductState): ProductState => {
 
 export const update = (id: Id, product: Product, state: ProductState): ProductState => {
   const products = state.products.map((item) => {
-    if (item.id === id) {
+    if (item.id == id) {
       return { ...item, ...product };
     }
 
@@ -52,4 +52,16 @@ export const read = (product: Product, state: ProductState): ProductState => {
 
 export const reading = (flag: boolean, state: ProductState): ProductState => {
   return { ...state, reading: flag };
+};
+
+export const errors = (
+  errors: Partial<{
+    createError: string;
+    updateError: string;
+    removeError: string;
+    readError: string;
+  }>,
+  state: ProductState
+): ProductState => {
+  return { ...state, ...errors };
 };

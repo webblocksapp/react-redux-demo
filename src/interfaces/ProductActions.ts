@@ -10,4 +10,14 @@ export type ProductActions =
   | { type: 'PRODUCT:REMOVE'; id: Id }
   | { type: 'PRODUCT:REMOVING'; flag: boolean }
   | { type: 'PRODUCT:READ'; product: Product }
-  | { type: 'PRODUCT:READING'; flag: boolean };
+  | { type: 'PRODUCT:READING'; flag: boolean }
+  | {
+      type: 'PRODUCT:ERROR';
+      errors: Partial<{
+        listError: string;
+        createError: string;
+        updateError: string;
+        removeError: string;
+        readError: string;
+      }>;
+    };

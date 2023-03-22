@@ -10,6 +10,7 @@ import {
   removing,
   read,
   reading,
+  errors,
 } from './handlers';
 
 const initialState: ProductState = {
@@ -20,6 +21,11 @@ const initialState: ProductState = {
   updating: false,
   removing: false,
   reading: false,
+  listError: '',
+  createError: '',
+  updateError: '',
+  removeError: '',
+  readError: '',
 };
 
 export const productState = (state: ProductState = initialState, action: ProductActions) => {
@@ -44,6 +50,8 @@ export const productState = (state: ProductState = initialState, action: Product
       return read(action.product, state);
     case 'PRODUCT:READING':
       return reading(action.flag, state);
+    case 'PRODUCT:ERROR':
+      return errors(action.errors, state);
     default:
       return state;
   }

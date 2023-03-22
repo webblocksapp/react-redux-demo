@@ -8,4 +8,9 @@ export type ProductState = {
   updating: boolean;
   removing: boolean;
   reading: boolean;
+  listError: string;
+  createError: string;
+  updateError: string;
+  removeError: string;
+  readError: string;
 };
