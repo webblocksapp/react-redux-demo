@@ -7,7 +7,14 @@
     "dev": "vite",
     "server": "json-server ./server/db.json --delay 1000",
     "build": "vite build",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "storybook": "storybook dev -p 6006",
+    "build-storybook": "storybook build",
+    "test:coverage": "jest --coverage",
+    "test-storybook:coverage": "test-storybook:coverage --coverage",
+    "test-all:coverage": "yarn test:coverage && yarn test-storybook:coverage",
+    "coverage-report": "cp coverage/storybook/coverage-storybook.json coverage/coverage-storybook.json && nyc report --reporter=html -t coverage --report-dir coverage",
+    "view-coverage-report": "yarn coverage-report && cd coverage && npx serve"
   },
   "repository": {
     "type": "git",
@@ -41,10 +48,27 @@
     "yup": "^0.32.11"
   },
   "devDependencies": {
+    "@storybook/addon-coverage": "^0.0.8",
+    "@storybook/addon-essentials": "^7.0.0-rc.8",
+    "@storybook/addon-interactions": "^7.0.0-rc.8",
+    "@storybook/addon-links": "^7.0.0-rc.8",
+    "@storybook/blocks": "^7.0.0-rc.8",
+    "@storybook/jest": "^0.0.11-next.1",
+    "@storybook/react": "^7.0.0-rc.8",
+    "@storybook/react-vite": "^7.0.0-rc.8",
+    "@storybook/test-runner": "^0.10.0-next.11",
+    "@storybook/testing-library": "^0.0.14-next.1",
     "@types/react": "^18.0.24",
     "@types/react-dom": "^18.0.8",
     "@vitejs/plugin-react": "^2.2.0",
+    "babel-plugin-transform-vite-meta-env": "^1.0.3",
+    "jest-environment-jsdom": "^29.5.0",
     "json-server": "^0.17.0",
+    "prop-types": "^15.8.1",
+    "storybook": "^7.0.0-rc.8",
+    "ts-jest": "^29.0.5",
+    "ts-node": "^10.9.1",
+    "typescript": "^5.0.2",
     "vite": "^3.2.1",
     "vite-tsconfig-paths": "^3.5.2"
   }

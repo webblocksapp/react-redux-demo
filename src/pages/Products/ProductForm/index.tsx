@@ -46,8 +46,15 @@ export const ProductForm: React.FC = () => {
               <Controller
                 name={'name'}
                 control={control}
-                render={({ field: { onChange, value } }) => (
-                  <TextField fullWidth label="Name" onChange={onChange} value={value} />
+                render={({ field: { onChange, name, value } }) => (
+                  <TextField
+                    data-testId="name"
+                    fullWidth
+                    name={name}
+                    label="Name"
+                    onChange={onChange}
+                    value={value}
+                  />
                 )}
               />
             </Grid>
@@ -55,8 +62,14 @@ export const ProductForm: React.FC = () => {
               <Controller
                 name={'brand'}
                 control={control}
-                render={({ field: { onChange, value } }) => (
-                  <TextField fullWidth label="Brand" onChange={onChange} value={value} />
+                render={({ field: { onChange, name, value } }) => (
+                  <TextField
+                    fullWidth
+                    name={name}
+                    label="Brand"
+                    onChange={onChange}
+                    value={value}
+                  />
                 )}
               />
             </Grid>
@@ -64,9 +77,10 @@ export const ProductForm: React.FC = () => {
               <Controller
                 name={'price'}
                 control={control}
-                render={({ field: { onChange, value } }) => (
+                render={({ field: { onChange, value, name } }) => (
                   <TextField
                     fullWidth
+                    name={name}
                     label="Price"
                     type="number"
                     onChange={onChange}
@@ -79,9 +93,10 @@ export const ProductForm: React.FC = () => {
               <Controller
                 name={'currency'}
                 control={control}
-                render={({ field: { onChange, value } }) => (
+                render={({ field: { onChange, value, name } }) => (
                   <TextField
                     fullWidth
+                    name={name}
                     disabled
                     label="Currency"
                     onChange={onChange}
