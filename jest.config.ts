@@ -9,6 +9,7 @@ const config: Config.InitialOptions = {
   }),
   transform: {
     '\\.[jt]sx?$': 'babel-jest',
+    '\\.(css|less)$': '<rootDir>/test-transforms/styleMock.js', //CSS ignore
   },
   testEnvironment: 'jsdom',
 };

@@ -60,6 +60,7 @@ export const useProductModel = () => {
 
   const read = async (id: Id) => {
     try {
+      console.log('=========>');
       dispatch({ type: 'PRODUCT:ERROR', errors: { readError: '' } });
       dispatch({ type: 'PRODUCT:READING', flag: true });
       dispatch({ type: 'PRODUCT:READ', product: await productApiClient.read(id) });
