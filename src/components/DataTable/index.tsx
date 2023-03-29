@@ -42,7 +42,7 @@ export const DataTable: React.FC<DataTableProps> = ({
   };
 
   const onPageChange: TablePaginationProps['onPageChange'] = (_, page) => {
-    rest?.onPageChange?.(page + 1);
+    rest?.onPageChange?.(page);
   };
 
   const onRowsPerPageChange: TablePaginationProps['onRowsPerPageChange'] = (e) => {
@@ -66,7 +66,7 @@ export const DataTable: React.FC<DataTableProps> = ({
           <TablePagination
             component="div"
             count={pagination.count}
-            page={pagination.page - 1}
+            page={pagination.page}
             rowsPerPage={pagination.limit}
             onPageChange={onPageChange}
             onRowsPerPageChange={onRowsPerPageChange}

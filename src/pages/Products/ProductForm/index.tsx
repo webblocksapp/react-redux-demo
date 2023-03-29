@@ -47,14 +47,7 @@ export const ProductForm: React.FC = () => {
                 name={'name'}
                 control={control}
                 render={({ field: { onChange, name, value } }) => (
-                  <TextField
-                    data-testId="name"
-                    fullWidth
-                    name={name}
-                    label="Name"
-                    onChange={onChange}
-                    value={value}
-                  />
+                  <TextField fullWidth name={name} label="Name" onChange={onChange} value={value} />
                 )}
               />
             </Grid>
