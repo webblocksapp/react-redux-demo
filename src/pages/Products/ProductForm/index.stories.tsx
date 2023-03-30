@@ -24,7 +24,7 @@ export const FillProductForm: Story = {
       </MemoryRouter>
     ),
   ],
-  name: 'Form data is valid when filled',
+  name: 'Form data is valid with user input',
   play: async ({ canvasElement }) => {
     await sleep(100);
 

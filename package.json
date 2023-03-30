@@ -10,7 +10,7 @@
     "storybook": "storybook dev -p 6006 -s ../public",
     "build-storybook": "storybook build",
     "test:coverage": "jest --coverage",
-    "test-storybook:coverage": "test-storybook:coverage --coverage",
+    "test-storybook:coverage": "test-storybook --coverage",
     "test-all:coverage": "yarn test:coverage && yarn test-storybook:coverage",
     "coverage-report": "cp coverage/storybook/coverage-storybook.json coverage/coverage-storybook.json && nyc report --reporter=html -t coverage --report-dir coverage",
     "view-coverage-report": "yarn coverage-report && cd coverage && npx serve"
