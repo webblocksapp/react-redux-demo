@@ -1,8 +1,10 @@
-import React from 'react';
-import { BrowserRouter } from 'react-router-dom';
 import { Preview } from '@storybook/react';
 import { Provider } from 'react-redux';
-import { store } from '../src/store';
+import { initialize, mswDecorator } from 'msw-storybook-addon';
+import { store } from '@store';
+import * as handlers from '@mocks/handlers';
+
+initialize({ onUnhandledRequest: 'bypass' });
 
 const preview: Preview = {
   parameters: {
@@ -13,13 +15,15 @@ const preview: Preview = {
         date: /Date$/,
       },
     },
+    msw: {
+      handlers,
+    },
   },
   decorators: [
+    mswDecorator,
     (Story) => (
       <Provider store={store}>
-        <BrowserRouter>
-          <Story />
-        </BrowserRouter>
+        <Story />
       </Provider>
     ),
   ],

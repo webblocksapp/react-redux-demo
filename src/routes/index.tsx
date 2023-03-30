@@ -20,7 +20,7 @@ export const routes: RouteObject[] = [
             element: <ProductsTable />,
           },
           {
-            path: ':id',
+            path: 'update/:id',
             element: <ProductForm />,
           },
         ],

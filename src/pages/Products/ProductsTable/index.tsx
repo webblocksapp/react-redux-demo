@@ -30,7 +30,7 @@ export const ProductsTable: React.FC = () => {
             label: 'Actions',
             cellTemplate: (row: Product) => (
               <>
-                <IconButton onClick={() => navigate(`${row.id}`)}>
+                <IconButton onClick={() => navigate(`update/${row.id}`)}>
                   <EditIcon />
                 </IconButton>
               </>

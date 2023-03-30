@@ -32,7 +32,7 @@ export const ProductForm: React.FC = () => {
   }, [product]);
 
   useEffect(() => {
-    product === undefined && productModel.read(id);
+    id && product === undefined && productModel.read(id);
   }, []);
 
   return (

@@ -14,9 +14,11 @@
       "@interfaces": ["src/interfaces"],
       "@layouts": ["src/layouts"],
       "@models": ["src/models"],
+      "@mocks/*": ["src/mocks/*"],
       "@pages": ["src/pages"],
       "@routes": ["src/routes"],
       "@states": ["src/states"],
+      "@store": ["src/store.ts"],
       "@utils": ["src/utils"]
     },
     "types": ["vite/client"],
