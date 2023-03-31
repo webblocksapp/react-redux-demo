@@ -45,6 +45,14 @@ export const useProductModel = () => {
     }
   };
 
+  const save = (data: Product) => {
+    if (data.id === undefined) {
+      return create(data);
+    } else {
+      return update(data.id, data);
+    }
+  };
+
   const remove = async (id: Id) => {
     try {
       dispatch({ type: 'PRODUCT:ERROR', errors: { removeError: '' } });
@@ -74,5 +82,5 @@ export const useProductModel = () => {
   const selectProduct = (id: Id, state: RootState) =>
     state.productState.products.find((item) => item.id == id);
 
-  return { list, create, update, remove, read, selectProductState, selectProduct };
+  return { list, create, update, remove, read, save, selectProductState, selectProduct };
 };

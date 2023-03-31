@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import { Controller } from 'react-hook-form';
 import { useForm } from '@utils';
-import { Button, Grid, TextField, Typography } from '@components';
+import { Button, Grid, Stack, TextField, Typography } from '@components';
 import { schema } from './schema';
 import { Product, RootState } from '@interfaces';
 import { useNavigate, useParams } from 'react-router-dom';
@@ -23,7 +23,11 @@ export const ProductForm: React.FC = () => {
   } = useForm(schema);
 
   const submit = async (data: Product) => {
-    await productModel.update(id, data);
+    await productModel.save({ ...data, id });
+    back();
+  };
+
+  const back = () => {
     navigate('../');
   };
 
@@ -99,13 +103,18 @@ export const ProductForm: React.FC = () => {
               />
             </Grid>
             <Grid item xs={12}>
-              <Button
-                type="submit"
-                variant="contained"
-                disabled={!isValid || productState.updating}
-              >
-                Submit
-              </Button>
+              <Stack direction="row" spacing={2}>
+                <Button
+                  type="submit"
+                  variant="contained"
+                  disabled={!isValid || productState.updating}
+                >
+                  Submit
+                </Button>
+                <Button onClick={back} variant="contained" color="secondary">
+                  Cancel
+                </Button>
+              </Stack>
             </Grid>
           </Grid>
         </form>

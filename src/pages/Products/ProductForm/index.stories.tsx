@@ -3,7 +3,7 @@ import { ProductForm } from '@pages';
 import { fireEvent } from '@storybook/testing-library';
 import { expect } from '@storybook/jest';
 import { sleep } from '@utils';
-import { MemoryRouter, Routes, Route } from 'react-router';
+import { MemoryRouter, Route, Routes } from 'react-router-dom';
 
 const meta: Meta<typeof ProductForm> = {
   title: 'Forms/ProductForm',

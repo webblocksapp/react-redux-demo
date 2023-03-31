@@ -1,6 +1,6 @@
 import { Product } from '@interfaces';
 
-export let products: Product[] = [
+export const products: Product[] = [
   {
     id: 1,
     name: 'Ergonomic Cotton Shirt',

@@ -13,8 +13,12 @@ export const listing = (flag: boolean, state: ProductState): ProductState => {
 };
 
 export const create = (product: Product, state: ProductState): ProductState => {
-  const products = [...state.products, product];
-  return { ...state, products };
+  const products = [product, ...state.products];
+  return {
+    ...state,
+    products,
+    pagination: { ...state.pagination, count: state.pagination.count + 1 },
+  };
 };
 
 export const creating = (flag: boolean, state: ProductState): ProductState => {
@@ -38,7 +42,11 @@ export const updating = (flag: boolean, state: ProductState): ProductState => {
 
 export const remove = (id: Id, state: ProductState): ProductState => {
   const products = state.products.filter((item) => item.id !== id);
-  return { ...state, products };
+  return {
+    ...state,
+    products,
+    pagination: { ...state.pagination, count: state.pagination.count - 1 },
+  };
 };
 
 export const removing = (flag: boolean, state: ProductState): ProductState => {

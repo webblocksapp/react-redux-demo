@@ -3,6 +3,8 @@ import { paginateData } from '@utils';
 import { rest } from 'msw';
 import { data } from '../data';
 
+let lastId = data.products.length;
+
 export const productHandler = [
   // List
   rest.get(`${ENV.baseURL}/products`, (req, res, ctx) => {
@@ -17,9 +19,11 @@ export const productHandler = [
   }),
   // Create
   rest.post(`${ENV.baseURL}/products`, async (req, res, ctx) => {
-    const body = await req.json();
+    lastId++;
+
+    let body = { id: lastId, ...(await req.json()) };
     data.products.push(body);
-    return res(ctx.status(200), ctx.json(data.products));
+    return res(ctx.status(200), ctx.json(body));
   }),
   // Read
   rest.get(`${ENV.baseURL}/products/:id`, (req, res, ctx) => {

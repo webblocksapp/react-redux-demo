@@ -1,5 +1,6 @@
 export const paginateData = (data: Array<any>, pagination: { page: number; limit: number }) => {
-  const start = pagination.page * pagination.limit;
-  const end = start + pagination.limit;
+  const limit = Number(pagination.limit);
+  const start = Number(pagination.page) * limit;
+  const end = start + limit;
   return data.slice(start, end);
 };
