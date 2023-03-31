@@ -2,7 +2,7 @@ import { localAxios } from '@utils';
 import { EntityParams, Id, Product } from '@interfaces';
 
 export const useProductApiClient = () => {
-  const list = async (params: EntityParams<Product>) => {
+  const list = async (params?: EntityParams<Product>) => {
     params = { _limit: 10, _page: 0, ...params };
     const { data, headers } = await localAxios.get<Product[]>('/products', {
       params,

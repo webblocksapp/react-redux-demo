@@ -1,6 +1,9 @@
 import { Config } from '@jest/types';
 import { pathsToModuleNameMapper } from 'ts-jest';
 import { compilerOptions } from './tsconfig.json';
+import dotenv from 'dotenv';
+
+dotenv.config();
 
 const config: Config.InitialOptions = {
   verbose: true,
@@ -11,6 +14,7 @@ const config: Config.InitialOptions = {
     '\\.[jt]sx?$': 'babel-jest',
   },
   testEnvironment: 'jsdom',
+  setupFilesAfterEnv: ['./jest.setup.ts'],
 };
 
 export default config;

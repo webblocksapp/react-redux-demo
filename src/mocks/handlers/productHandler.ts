@@ -31,7 +31,8 @@ export const productHandler = [
     return res(ctx.status(200), ctx.json(await req.json()));
   }),
   // Remove
-  rest.delete(`${ENV.baseURL}/products/:id`, async (_, res, ctx) => {
-    return res(ctx.status(200), ctx.json(null));
+  rest.delete(`${ENV.baseURL}/products/:id`, async (req, res, ctx) => {
+    const { id } = req.params;
+    return res(ctx.status(200), ctx.json(data.products.find((item) => item.id == id)));
   }),
 ];
