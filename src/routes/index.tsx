@@ -23,6 +23,10 @@ export const routes: RouteObject[] = [
             path: 'update/:id',
             element: <ProductForm />,
           },
+          {
+            path: 'create',
+            element: <ProductForm />,
+          },
         ],
       },
       {
