@@ -12,6 +12,7 @@
       "@components": ["src/components"],
       "@constants": ["src/constants"],
       "@interfaces": ["src/interfaces"],
+      "@jest-utils": ["jest.utils.tsx"],
       "@layouts": ["src/layouts"],
       "@models": ["src/models"],
       "@mocks/*": ["src/mocks/*"],
