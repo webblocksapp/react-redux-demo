@@ -18,6 +18,7 @@ export const create = (product: Product, state: ProductState): ProductState => {
     ...state,
     products,
     pagination: { ...state.pagination, count: state.pagination.count + 1 },
+    createError: '',
   };
 };
 
@@ -33,7 +34,7 @@ export const update = (id: Id, product: Product, state: ProductState): ProductSt
 
     return item;
   });
-  return { ...state, products };
+  return { ...state, products, updateError: '' };
 };
 
 export const updating = (flag: boolean, state: ProductState): ProductState => {
@@ -46,6 +47,7 @@ export const remove = (id: Id, state: ProductState): ProductState => {
     ...state,
     products,
     pagination: { ...state.pagination, count: state.pagination.count - 1 },
+    removeError: '',
   };
 };
 
@@ -55,7 +57,7 @@ export const removing = (flag: boolean, state: ProductState): ProductState => {
 
 export const read = (product: Product, state: ProductState): ProductState => {
   const products = [...state.products, product];
-  return { ...state, products };
+  return { ...state, products, readError: '' };
 };
 
 export const reading = (flag: boolean, state: ProductState): ProductState => {

@@ -46,7 +46,7 @@ export const FillProductForm: Story = {
 export const FetchProductFormData: Story = {
   decorators: [
     (Story) => (
-      <MemoryRouter initialEntries={['/products/update/2']}>
+      <MemoryRouter initialEntries={['/products/update/d07faa22-ecdb-48e1-b1d5-5fda6de9440c']}>
         <Routes>
           <Route path="/products/update/:id" element={<Story />} />
         </Routes>

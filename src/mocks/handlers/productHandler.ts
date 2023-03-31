@@ -2,8 +2,7 @@ import { ENV } from '@constants';
 import { paginateData } from '@utils';
 import { rest } from 'msw';
 import { data } from '../data';
-
-let lastId = data.products.length;
+import { v4 as uuid } from 'uuid';
 
 export const productHandler = [
   // List
@@ -19,10 +18,7 @@ export const productHandler = [
   }),
   // Create
   rest.post(`${ENV.baseURL}/products`, async (req, res, ctx) => {
-    lastId++;
-
-    let body = { id: lastId, ...(await req.json()) };
-    data.products.push(body);
+    let body = { id: uuid(), ...(await req.json()) };
     return res(ctx.status(200), ctx.json(body));
   }),
   // Read
@@ -32,20 +28,10 @@ export const productHandler = [
   }),
   // Update
   rest.put(`${ENV.baseURL}/products/:id`, async (req, res, ctx) => {
-    const { id } = req.params;
-    const body = await req.json();
-
-    data.products = data.products = data.products.map((item) => {
-      if (item.id == id) return body;
-      return item;
-    });
-
-    return res(ctx.status(200), ctx.json(body));
+    return res(ctx.status(200), ctx.json(await req.json()));
   }),
   // Remove
-  rest.delete(`${ENV.baseURL}/products/:id`, async (req, res, ctx) => {
-    const { id } = req.params;
-    data.products = data.products = data.products.filter((item) => item.id !== id);
+  rest.delete(`${ENV.baseURL}/products/:id`, async (_, res, ctx) => {
     return res(ctx.status(200), ctx.json(null));
   }),
 ];
