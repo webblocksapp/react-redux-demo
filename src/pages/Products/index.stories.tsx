@@ -6,6 +6,7 @@ import { expect } from '@storybook/jest';
 import { sleep } from '@utils';
 import { Product } from '@interfaces';
 import { MemoryRouter, Route, Routes } from 'react-router-dom';
+import { SLEEP_TIME } from '@constants';
 
 const testData: Product = {
   id: 1,
@@ -53,18 +54,18 @@ const fillForm = (canvasElement: HTMLElement, data: Product = testData) => {
 export const CreateProduct: Story = {
   name: 'Create record',
   play: async ({ canvasElement }) => {
-    await sleep(200);
+    await sleep(SLEEP_TIME);
     const canvas = within(canvasElement);
     const createBtn = canvas.getByText('Create');
 
     fireEvent.click(createBtn);
-    await sleep(200);
+    await sleep(SLEEP_TIME);
 
     const submitBtn = canvasElement.querySelector<HTMLButtonElement>('button[type="submit"]');
     fillForm(canvasElement, testData);
-    await sleep(200);
+    await sleep(SLEEP_TIME);
     fireEvent.click(submitBtn);
-    await sleep(200);
+    await sleep(SLEEP_TIME);
 
     const firstRow = canvasElement.querySelector('tbody > tr.MuiTableRow-root');
     const firstRowData = Array.from(firstRow.querySelectorAll('td')).map((td) => td.innerText);
@@ -75,18 +76,18 @@ export const CreateProduct: Story = {
 export const UpdateProduct: Story = {
   name: 'Update record',
   play: async ({ canvasElement }) => {
-    await sleep(200);
+    await sleep(SLEEP_TIME);
     let firstRow = canvasElement.querySelector('tbody > tr.MuiTableRow-root');
     const actionBtns = Array.from(firstRow.querySelectorAll('button'));
     const [editBtn] = actionBtns;
 
     fireEvent.click(editBtn);
-    await sleep(200);
+    await sleep(SLEEP_TIME);
 
     const submitBtn = canvasElement.querySelector<HTMLButtonElement>('button[type="submit"]');
     fillForm(canvasElement, { ...testData, name: 'Shirt' });
     fireEvent.click(submitBtn);
-    await sleep(200);
+    await sleep(SLEEP_TIME);
 
     firstRow = canvasElement.querySelector('tbody > tr.MuiTableRow-root');
     const firstRowData = Array.from(firstRow.querySelectorAll('td')).map((td) => td.innerText);
@@ -97,7 +98,7 @@ export const UpdateProduct: Story = {
 export const RemoveProduct: Story = {
   name: 'Remove record',
   play: async ({ canvasElement }) => {
-    await sleep(200);
+    await sleep(SLEEP_TIME);
     let firstRow = canvasElement.querySelector('tbody > tr.MuiTableRow-root');
     const [initialFirstRowId] = Array.from(firstRow.querySelectorAll('td')).map(
       (td) => td.innerText
@@ -106,7 +107,7 @@ export const RemoveProduct: Story = {
     const [_, removeBtn] = actionBtns;
 
     fireEvent.click(removeBtn);
-    await sleep(200);
+    await sleep(SLEEP_TIME);
 
     firstRow = canvasElement.querySelector('tbody > tr.MuiTableRow-root');
     const [currentFirstRowId] = Array.from(firstRow.querySelectorAll('td')).map(
